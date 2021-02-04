@@ -25,6 +25,7 @@ class AppleStorage extends \yii\db\ActiveRecord
         'green',
         'brown',
     ];
+    public $capacity = 1;
 
     /**
      * {@inheritdoc}
@@ -60,5 +61,21 @@ class AppleStorage extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'fell_at' => 'Fell At',
         ];
+    }
+
+    /**
+     *After that apple can spoiled after 5 hours, and can to eating
+     */
+    public function FallToGround() {
+
+    }
+
+    /**
+     * Checking - if apple was fallen at ground then we can sub. capacity
+     * @param $capacity
+     */
+    public function Eat($capacity) {
+
+
     }
 }

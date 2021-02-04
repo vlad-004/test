@@ -1,7 +1,11 @@
 <?php
+
 namespace backend\controllers;
 
+use backend\models\AppleStorageSearch;
+use backend\components\applestorage\actions\CreateAction;
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -26,7 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'create-apple',],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -50,6 +54,7 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
+            'create-apple' => CreateAction::class,
         ];
     }
 
@@ -57,11 +62,16 @@ class SiteController extends Controller
      * Displays homepage.
      *
      * @return string
+     * @throws InvalidArgumentException
      */
     public function actionIndex()
     {
+        $searchModel = new AppleStorageSearch();
+        $appleProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index');
+        return $this->render('index', [
+            'appleProvider' => $appleProvider,
+        ]);
     }
 
     /**

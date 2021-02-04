@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50114089d7de41b6fbcc4d646295169a",
+    "content-hash": "888033c46d3aea183b5122085a9e739d",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1162,16 +1162,16 @@
     "packages-dev": [
         {
             "name": "behat/gherkin",
-            "version": "v4.7.2",
+            "version": "v4.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Gherkin.git",
-                "reference": "d1ff9aa23bb280e8aee9118d42eec386d6f851f7"
+                "reference": "d5ae4616aeaa91daadbfb8446d9d17aae8d43cf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/d1ff9aa23bb280e8aee9118d42eec386d6f851f7",
-                "reference": "d1ff9aa23bb280e8aee9118d42eec386d6f851f7",
+                "url": "https://api.github.com/repos/Behat/Gherkin/zipball/d5ae4616aeaa91daadbfb8446d9d17aae8d43cf7",
+                "reference": "d5ae4616aeaa91daadbfb8446d9d17aae8d43cf7",
                 "shasum": ""
             },
             "require": {
@@ -1220,9 +1220,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Behat/Gherkin/issues",
-                "source": "https://github.com/Behat/Gherkin/tree/v4.7.2"
+                "source": "https://github.com/Behat/Gherkin/tree/v4.7.3"
             },
-            "time": "2021-02-03T16:10:01+00:00"
+            "time": "2021-02-04T12:26:47+00:00"
         },
         {
             "name": "codeception/codeception",
@@ -4846,7 +4846,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6.0"
+        "php": ">=7.1"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
