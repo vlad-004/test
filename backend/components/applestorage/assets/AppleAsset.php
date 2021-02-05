@@ -10,13 +10,13 @@ class AppleAsset extends AssetBundle
     public $sourcePath = '@backend/components/applestorage/assets';
 
     public $css = [
-        'css/page.css',
+        'css/appleIndex.css',
     ];
     public $js = [
-        'js/page.js',
+        'js/appleIndex.js',
     ];
 
     public $depends = [
-        'backend\assets\AppAsset',
+        'yii\web\JqueryAsset'
     ];
 }

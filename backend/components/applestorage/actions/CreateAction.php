@@ -4,6 +4,7 @@ namespace backend\components\applestorage\actions;
 
 use backend\models\AppleStorage;
 use yii\base\Action;
+use yii\helpers\Url;
 
 /**
  * Creating random count of apples with random colors
@@ -22,7 +23,7 @@ class CreateAction extends Action
             $apple->save();
         }
 
-        return $this->controller->redirect('/backend');
+        return $this->controller->redirect(Url::to('index'));
     }
 
     /**

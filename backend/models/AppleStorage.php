@@ -26,7 +26,6 @@ class AppleStorage extends \yii\db\ActiveRecord
         'green',
         'brown',
     ];
-    public $capacity = 1;
 
     /**
      * {@inheritdoc}

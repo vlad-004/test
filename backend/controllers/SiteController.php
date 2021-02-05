@@ -5,14 +5,17 @@ namespace backend\controllers;
 use backend\components\applestorage\actions\DeleteAction;
 use backend\components\applestorage\actions\EatAction;
 use backend\components\applestorage\actions\FallAction;
+use backend\models\AppleStorage;
 use backend\models\AppleStorageSearch;
 use backend\components\applestorage\actions\CreateAction;
+use backend\models\EatAppleForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -40,6 +43,7 @@ class SiteController extends Controller
                             'fall-apple',
                             'eat-apple',
                             'delete-apple',
+                            'show-eat-apple-modal',
                             ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -50,9 +54,18 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'eat-apple' => ['post'],
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        if(in_array($action->id,['eat-apple'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
     }
 
     /**
@@ -81,9 +94,29 @@ class SiteController extends Controller
     {
         $searchModel = new AppleStorageSearch();
         $appleProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $appleProvider->pagination = false;
 
         return $this->render('index', [
             'appleProvider' => $appleProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionShowEatAppleModal($id)
+    {
+        $appleModel = AppleStorage::findOne($id);
+        if (!$appleModel) {
+            throw new NotFoundHttpException('Ошибка Такого яблока не существует');
+        }
+        $formModel = new EatAppleForm();
+
+        return $this->renderAjax('_eatAppleModal', [
+            'formModel' => $formModel,
+            'appleModel' => $appleModel,
         ]);
     }
 
