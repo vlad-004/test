@@ -39,13 +39,21 @@ $this->title = 'Тестовое задание для PR Holding';
                 'contentOptions' => ['style' => 'width : 100px;'],
                 'template' => '{fall-apple} {eat-apple}',
                 'buttons' => [
-                    'fall-apple' => function ($url,$model) {
+                    'fall-apple' => function ($url, $model) {
                         return Html::a('<span  class="btn btn-success btn-sm btn-rounded">Уронить на землю</span>',
                             $url, ['class' => $model->state === AppleStorage::STATE_FELL ? 'disable' : '',]);
                     },
-                    'eat-apple' => function ($url) {
-                        return Html::a('<span  class=" btn btn-warning btn-sm btn-rounded">Скушать яблоко</span>',
-                            $url);
+                    'eat-apple' => function ($url, $model) {
+                        if ($model->state === AppleStorage::STATE_ROTTEN) {
+                            $btn = Html::tag( 'span',
+                                'Яблоко испорченно',
+                                ['class' => 'rotten-apple disabled']
+                            );
+                        } else {
+                            $btn = Html::a('<span  class=" btn btn-warning btn-sm btn-rounded">Скушать яблоко</span>',
+                                $url);
+                        }
+                        return $btn;
                     },
                 ],
             ],

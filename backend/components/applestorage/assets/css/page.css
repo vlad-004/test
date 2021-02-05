@@ -2,3 +2,8 @@
     pointer-events: none;
     cursor: default;
 }
+.rotten-apple {
+    font-size: 12px;
+    padding: 2px;
+    color: red;
+}
