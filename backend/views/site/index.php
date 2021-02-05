@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\AppleStorage;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -7,7 +8,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $appleProvider ArrayDataProvider */
 
-$this->title = 'тестовое задание для PR Holding';
+$this->title = 'Тестовое задание для PR Holding';
 ?>
 <div class="site-index">
 
@@ -18,5 +19,33 @@ $this->title = 'тестовое задание для PR Holding';
     </p>
     <?= GridView::widget([
         'dataProvider' => $appleProvider,
+        'columns' => [
+            [
+                'attribute' => 'state',
+                'value' => function (AppleStorage $model) {
+                    return $model->getStateName();
+                }
+            ],
+            'color',
+            'capacity',
+            'created_at',
+            'fell_at',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => '',
+                'contentOptions' => ['style' => 'width : 100px;'],
+                'template' => '{fall-apple} {eat-apple}',
+                'buttons' => [
+                    'fall-apple' => function ($url) {
+                        return Html::a('<span  class=" btn btn-success btn-sm btn-rounded">Уронить на землю</span>',
+                            $url);
+                    },
+                    'eat-apple' => function ($url) {
+                        return Html::a('<span  class=" btn btn-warning btn-sm btn-rounded">Скушать яблоко</span>',
+                            $url);
+                    },
+                ],
+            ],
+        ]
     ]); ?>
 </div>

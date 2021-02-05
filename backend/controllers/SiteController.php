@@ -2,6 +2,9 @@
 
 namespace backend\controllers;
 
+use backend\components\applestorage\actions\DeleteAction;
+use backend\components\applestorage\actions\EatAction;
+use backend\components\applestorage\actions\FallAction;
 use backend\models\AppleStorageSearch;
 use backend\components\applestorage\actions\CreateAction;
 use Yii;
@@ -30,7 +33,14 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'create-apple',],
+                        'actions' => [
+                            'logout',
+                            'index',
+                            'create-apple',
+                            'fall-apple',
+                            'eat-apple',
+                            'delete-apple',
+                            ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -55,6 +65,9 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
             'create-apple' => CreateAction::class,
+            'fall-apple' => FallAction::class,
+            'eat-apple' => EatAction::class,
+            'delete-apple' => DeleteAction::class,
         ];
     }
 

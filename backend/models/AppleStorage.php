@@ -55,12 +55,28 @@ class AppleStorage extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'state' => 'state',
-            'color' => 'Color',
-            'capacity' => 'Capacity',
-            'created_at' => 'Created At',
-            'fell_at' => 'Fell At',
+            'state' => 'Расположение',
+            'color' => 'Цвет',
+            'capacity' => 'Ёмкость(размер)',
+            'created_at' => 'Дата появления',
+            'fell_at' => 'Дата падения',
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStateName(): string
+    {
+        switch ($this->state) {
+            case self::STATE_FELL:
+                return 'Упало';
+            case self::STATE_ROTTEN:
+                return 'Испорчено';
+            case self::STATE_ON_BRANCH:
+            default:
+                return 'На ветке';
+        }
     }
 
     /**
