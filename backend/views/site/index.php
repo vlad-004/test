@@ -1,5 +1,6 @@
 <?php
 
+use backend\components\applestorage\assets\AppleAsset;
 use backend\models\AppleStorage;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridView;
@@ -7,6 +8,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $appleProvider ArrayDataProvider */
+
+AppleAsset::register($this);
 
 $this->title = 'Тестовое задание для PR Holding';
 ?>
@@ -36,9 +39,9 @@ $this->title = 'Тестовое задание для PR Holding';
                 'contentOptions' => ['style' => 'width : 100px;'],
                 'template' => '{fall-apple} {eat-apple}',
                 'buttons' => [
-                    'fall-apple' => function ($url) {
-                        return Html::a('<span  class=" btn btn-success btn-sm btn-rounded">Уронить на землю</span>',
-                            $url);
+                    'fall-apple' => function ($url,$model) {
+                        return Html::a('<span  class="btn btn-success btn-sm btn-rounded">Уронить на землю</span>',
+                            $url, ['class' => $model->state === AppleStorage::STATE_FELL ? 'disable' : '',]);
                     },
                     'eat-apple' => function ($url) {
                         return Html::a('<span  class=" btn btn-warning btn-sm btn-rounded">Скушать яблоко</span>',

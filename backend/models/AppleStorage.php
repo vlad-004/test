@@ -55,7 +55,7 @@ class AppleStorage extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'state' => 'Расположение',
+            'state' => 'Состояние',
             'color' => 'Цвет',
             'capacity' => 'Ёмкость(размер)',
             'created_at' => 'Дата появления',
