@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\web\BadRequestHttpException;
 
 /**
  * This is the model class for table "apple_storage".
@@ -80,17 +81,52 @@ class AppleStorage extends \yii\db\ActiveRecord
     }
 
     /**
-     *After that apple can spoiled after 5 hours, and can to eating
+     * Change state for apple, After that apple can spoiled after 5 hours, and can to eating
      */
-    public function FallToGround() {
+    public function fallToGround()
+    {
+        if ($this->state === AppleStorage::STATE_FELL) {
+            throw new BadRequestHttpException('Яблоко невозможно сорвать с дерева повторно');
+        }
+        $this->state = AppleStorage::STATE_FELL;
+        $this->fell_at = date('Y-m-d, H:i:s', time());
+        $this->save();
+    }
 
+    /**
+     * Find apples with STATE_FELL when 5 hours have passed since the fall d change his state to STATE_ROTTEN
+     */
+    public static function changeToRotten(): bool
+    {
+        $fallenApples = AppleStorage::find()
+            ->where(['state' => AppleStorage::STATE_FELL])
+            ->all();
+        if ($fallenApples) {
+            $fallenApplesIds = [];
+            foreach ($fallenApples as $apple) {
+                /** @var AppleStorage $apple */
+                $dateWhenAppleRotten = strtotime($apple->fell_at . ' +5 hours');
+                if ($dateWhenAppleRotten <= strtotime('now')) {
+                    $fallenApplesIds[] = $apple->id;
+                }
+            }
+            if ($fallenApplesIds) {
+                AppleStorage::updateAll(
+                    ['state' => AppleStorage::STATE_ROTTEN],
+                    ['in', 'id', $fallenApplesIds]
+                );
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * Checking - if apple was fallen at ground then we can sub. capacity
      * @param $capacity
      */
-    public function Eat($capacity) {
+    public function eat($capacity)
+    {
 
 
     }
