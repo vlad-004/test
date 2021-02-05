@@ -4,6 +4,9 @@ namespace backend\models;
 
 use yii\base\Model;
 
+/*
+ * Validation form model, for Modal window with input capacity which user try to eat
+ * */
 class EatAppleForm extends Model
 {
     public const CAPACITY = 'capacity';
@@ -25,5 +28,4 @@ class EatAppleForm extends Model
             'capacity' => 'объем яблока',
         ];
     }
-
 }

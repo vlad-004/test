@@ -16,23 +16,9 @@ class CreateAction extends Action
         $appleCount = rand(1, 6);
 
         for ($i = 1; $i <= $appleCount; $i++) {
-            $apple = new AppleStorage();
-            $apple->color = $this->getRandomColor();
-            $apple->state = AppleStorage::STATE_ON_BRANCH;
-            $apple->created_at = date('Y-m-d, H:i:s', mt_rand(1, time()));
-            $apple->save();
+           AppleStorage::generateNewApple();
         }
 
-        return $this->controller->redirect(Url::to('index'));
+        return $this->controller->redirect(Url::to('/backend'));
     }
-
-    /**
-     * @return string
-     */
-    private function getRandomColor(): string
-    {
-        $appleColors = AppleStorage::$appleColors;
-        return $appleColors[array_rand($appleColors)];
-    }
-
 }

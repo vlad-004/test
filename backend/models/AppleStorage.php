@@ -2,7 +2,6 @@
 
 namespace backend\models;
 
-use Yii;
 use yii\web\BadRequestHttpException;
 
 /**
@@ -82,7 +81,7 @@ class AppleStorage extends \yii\db\ActiveRecord
     /**
      * Change state for apple, After that apple can spoiled after 5 hours, and can to eating
      */
-    public function fallToGround()
+    public function fallToGround(): void
     {
         if ($this->state === AppleStorage::STATE_FELL) {
             throw new BadRequestHttpException('Яблоко невозможно сорвать с дерева повторно');
@@ -118,6 +117,19 @@ class AppleStorage extends \yii\db\ActiveRecord
             }
         }
         return false;
+    }
+
+    /**
+     * @return AppleStorage
+     */
+    public static function generateNewApple(): AppleStorage
+    {
+        $apple = new self();
+        $apple->color = self::$appleColors[array_rand(self::$appleColors)];;
+        $apple->state = self::STATE_ON_BRANCH;
+        $apple->created_at = date('Y-m-d, H:i:s', mt_rand(1, time()));
+        $apple->save();
+        return $apple;
     }
 
     /**
